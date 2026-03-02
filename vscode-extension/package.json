@@ -1,0 +1,104 @@
+{
+  "name": "ghx-vscode",
+  "displayName": "ghx — GitHub Account Switcher",
+  "description": "Intelligent GitHub CLI account switching with Copilot Chat integration",
+  "version": "0.1.0",
+  "publisher": "msfttoler",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "github",
+    "account",
+    "switcher",
+    "gh",
+    "copilot"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "ghx.chat",
+        "name": "ghx",
+        "fullName": "GitHub Account Switcher",
+        "description": "Manage GitHub CLI account switching — ask about status, switch accounts, or get setup help",
+        "isSticky": false,
+        "commands": [
+          {
+            "name": "status",
+            "description": "Show current account status and inference signals"
+          },
+          {
+            "name": "why",
+            "description": "Explain why a specific account was selected for this workspace"
+          },
+          {
+            "name": "switch",
+            "description": "Switch to a different GitHub account"
+          },
+          {
+            "name": "setup",
+            "description": "Help configure ghx for your workspace"
+          }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "ghx.switchAccount",
+        "title": "ghx: Switch GitHub Account"
+      },
+      {
+        "command": "ghx.showStatus",
+        "title": "ghx: Show Account Status"
+      },
+      {
+        "command": "ghx.openConfig",
+        "title": "ghx: Open Configuration"
+      }
+    ],
+    "configuration": {
+      "title": "ghx",
+      "properties": {
+        "ghx.autoSwitch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically switch GitHub account when opening a workspace"
+        },
+        "ghx.configPath": {
+          "type": "string",
+          "default": "",
+          "description": "Override path to ghx config file (default: ~/.config/ghx/config.yml)"
+        },
+        "ghx.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show current GitHub account in the status bar"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.93.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "yaml": "^2.4.0"
+  }
+}
